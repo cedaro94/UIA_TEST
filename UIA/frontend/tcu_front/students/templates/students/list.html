@@ -1,111 +1,97 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="card-uia">
-<div class="d-flex justify-content-between align-items-center mb-4">
-<div>
-<h2 class="fw-bold mb-1">
- Estudiantes Registrados
-</h2>
-<p class="text-muted mb-0">
- Gestión de solicitudes TCU
-</p>
-</div>
-
-</div>
-<div class="table-responsive">
-<form method="GET" class="row mb-4">
-
-    <div class="col-md-4">
-
-        <input
-            type="text"
-            name="identification"
-            class="form-control"
-            placeholder="Buscar por identificación"
-            value="{{ identification }}"
-        >
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">
+                Estudiantes Registrados
+            </h2>
+            <p class="text-muted mb-0">
+                Gestión de solicitudes TCU
+            </p>
+        </div>
 
     </div>
+    <div class="table-responsive">
+        <form method="GET" class="row mb-4">
 
-    <div class="col-md-2">
+            <div class="col-md-4">
 
-        <button
-            type="submit"
-            class="btn btn-primary w-100"
-        >
-            Buscar
-        </button>
+                <input type="text" name="identification" class="form-control" placeholder="Buscar por identificación"
+                    value="{{ identification }}">
 
+            </div>
+
+            <div class="col-md-2">
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Buscar
+                </button>
+
+            </div>
+
+            <div class="col-md-2">
+
+                <a href="{% url 'student_list' %}" class="btn btn-secondary w-100">
+                    Limpiar
+                </a>
+
+            </div>
+
+        </form>
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Identificación</th>
+                    <th>Correo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>
+                        <strong>{{ student.name }}</strong>
+                    </td>
+                    <td>
+                        {{ student.identification }}
+                    </td>
+                    <td>
+                        {{ student.email }}
+                    </td>
+                    <td>
+                        {% if student.status == 'review' %}
+                        <span class="status-review">
+                            En revisión
+                        </span>
+                        {% endif %}
+                        {% if student.status == 'approved' %}
+                        <span class="status-approved">
+                            Aprobado
+                        </span>
+                        {% endif %}
+                        {% if student.status == 'pending' %}
+                        <span class="status-pending">
+                            Pendiente
+                        </span>
+                        {% endif %}
+                        {% if student.status == 'rejected' %}
+                        <span class="status-rejected">
+                            Rechazado
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="/edit-status/{{ student.id }}/" class="btn btn-sm btn-outline-primary">
+                            Cambiar Estado
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-
-    <div class="col-md-2">
-
-        <a
-            href="{% url 'student_list' %}"
-            class="btn btn-secondary w-100"
-        >
-            Limpiar
-        </a>
-
-    </div>
-
-</form>
-<table class="table table-hover align-middle">
-<thead>
-<tr>
-<th>Nombre</th>
-<th>Identificación</th>
-<th>Correo</th>
-<th>Estado</th>
-<th>Acciones</th>
-</tr>
-</thead>
-<tbody>
- {% for student in students %}
-<tr>
-<td>
-<strong>{{ student.name }}</strong>
-</td>
-<td>
- {{ student.identification }}
-</td>
-<td>
- {{ student.email }}
-</td>
-<td>
- {% if student.status == 'review' %}
-<span class="status-review">
- En revisión
-</span>
- {% endif %}
- {% if student.status == 'approved' %}
-<span class="status-approved">
- Aprobado
-</span>
- {% endif %}
- {% if student.status == 'pending' %}
-<span class="status-pending">
- Pendiente
-</span>
- {% endif %}
- {% if student.status == 'rejected' %}
-<span class="status-rejected">
- Rechazado
-</span>
- {% endif %}
-</td>
-<td>
-<a
-href="/edit-status/{{ student.id }}/"
-class="btn btn-sm btn-outline-primary"
->
- Cambiar Estado
-</a>
-</td>
-</tr>
- {% endfor %}
-</tbody>
-</table>
-</div>
 </div>
 {% endblock %}

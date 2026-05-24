@@ -1,111 +1,105 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row justify-content-center">
-<div class="col-lg-8">
-<div class="card-uia">
-<div class="mb-4 text-center">
-<h2 class="fw-bold">
- Registro de Estudiante
-</h2>
-<p class="text-muted">
- Complete la información solicitada
-</p>
-</div>
- {% if message %}
-<div class="alert alert-danger">
- {{ message }}
-</div>
- {% endif %}
-<form method="POST">
- {% csrf_token %}
-<div class="row">
-<div class="col-md-6 mb-3">
-<label class="form-label">
- Nombre Completo
-</label>
- {{ form.name }}
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">
- Identificación
-</label>
- {{ form.identification }}
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">
- Carnet
-</label>
- {{ form.student_card }}
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">
- Correo
-</label>
- {{ form.email }}
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">
- Teléfono
-</label>
- {{ form.phone }}
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">
- Año
-</label>
- {{ form.year }}
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">
- Lugar TCU
-</label>
- {{ form.tcu_place }}
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">
- Encargado
-</label>
- {{ form.manager_name }}
-</div>
-</div>
-<div class="mb-4">
-<label class="form-label fw-bold">
- Periodo TCU
-</label>
-    {% for period in periods %}
+    <div class="col-lg-8">
+        <div class="card-uia">
+            <div class="mb-4 text-center">
+                <h2 class="fw-bold">
+                    Registro de Estudiante
+                </h2>
+                <p class="text-muted">
+                    Complete la información solicitada
+                </p>
+            </div>
+            {% if message %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Nombre Completo
+                        </label>
+                        {{ form.name }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Identificación
+                        </label>
+                        {{ form.identification }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Carnet
+                        </label>
+                        {{ form.student_card }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Correo
+                        </label>
+                        {{ form.email }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Teléfono
+                        </label>
+                        {{ form.phone }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Año
+                        </label>
+                        {{ form.year }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Lugar TCU
+                        </label>
+                        {{ form.tcu_place }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">
+                            Encargado
+                        </label>
+                        {{ form.manager_name }}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-bold">
+                        Periodo TCU
+                    </label>
+                    {% for period in periods %}
 
-        <div class="form-check">
+                    <div class="form-check">
 
-            <input
-                class="form-check-input"
-                type="radio"
-                name="period_id"
-                value="{{ period.id }}"
-                required
-            >
+                        <input class="form-check-input" type="radio" name="period_id" value="{{ period.id }}" required>
 
-            <label class="form-check-label">
-                {{ period.name }}
-                - {{ period.year }}
-            </label>
+                        <label class="form-check-label">
+                            {{ period.name }}
+                            - {{ period.year }}
+                        </label>
 
+                    </div>
+
+                    {% endfor %}
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">
+                        Observaciones
+                    </label>
+                    {{ form.observations }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-uia">
+                        Registrar Estudiante
+                    </button>
+                </div>
+            </form>
         </div>
-
-    {% endfor %}
-</div>
-<div class="mb-4">
-<label class="form-label">
- Observaciones
-</label>
- {{ form.observations }}
-</div>
-<div class="text-center">
-<button type="submit" class="btn btn-uia">
- Registrar Estudiante
-</button>
-</div>
-</form>
-</div>
-</div>
+    </div>
 </div>
 {% endblock %}

@@ -3,11 +3,11 @@
 {% block content %}
 
 <h3>Cambiar estado</h3>
-    {% if message %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-    {% endif %}
+{% if message %}
+<div class="alert alert-danger">
+    {{ message }}
+</div>
+{% endif %}
 <form method="POST">
     {% csrf_token %}
 

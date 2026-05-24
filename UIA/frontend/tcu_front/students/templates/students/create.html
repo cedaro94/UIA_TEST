@@ -72,23 +72,26 @@
 <label class="form-label fw-bold">
  Periodo TCU
 </label>
- {% for period in periods %}
-<div class="form-check border rounded p-3 mb-2">
-<input
-class="form-check-input"
-type="radio"
-name="period_id"
-value="{{ period.id }}"
-required
->
-<label class="form-check-label ms-2">
-<strong>
- {{ period.name }}
-</strong>
- - {{ period.year }}
-</label>
-</div>
- {% endfor %}
+    {% for period in periods %}
+
+        <div class="form-check">
+
+            <input
+                class="form-check-input"
+                type="radio"
+                name="period_id"
+                value="{{ period.id }}"
+                required
+            >
+
+            <label class="form-check-label">
+                {{ period.name }}
+                - {{ period.year }}
+            </label>
+
+        </div>
+
+    {% endfor %}
 </div>
 <div class="mb-4">
 <label class="form-label">

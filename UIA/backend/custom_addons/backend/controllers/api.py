@@ -188,3 +188,39 @@ class API(http.Controller):
                 'success': False,
                 'message': str(e)
             }
+    # =========================
+    # LISTAR PERIODOS
+    # =========================
+    @http.route(
+        '/api/tcu/periods',
+        type='http',
+        auth='public',
+        methods=['GET'],
+        csrf=False
+    )
+    def list_periods(self, **kwargs):
+
+        periods = request.env['tcu.period'].sudo().search([
+            ('active', '=', True)
+        ])
+
+        data = []
+
+        for p in periods:
+            data.append({
+                'id': p.id,
+                'name': p.name,
+                'year': p.year,
+                'start_date': str(p.start_date),
+                'end_date': str(p.end_date),
+            })
+
+        return request.make_response(
+            json.dumps({
+                'success': True,
+                'data': data
+            }),
+            headers=[
+                ('Content-Type', 'application/json')
+            ]
+        )

@@ -30,7 +30,23 @@ def student_list(request):
 def create_student(request):
 
     message = None
+    periods = []
+    # =========================
+    # CARGAR PERIODOS
+    # =========================
+    try:
 
+        period_response = requests.get(
+            f"{ODOO_API}/api/tcu/periods"
+        )
+        period_data = period_response.json()
+
+        periods = period_data.get('data', [])
+    except Exception as e:
+        print("Error cargando periodos:", e)
+    # =========================
+    # CREAR ESTUDIANTE
+    # =========================
     if request.method == 'POST':
 
         form = StudentForm(request.POST)
@@ -47,34 +63,44 @@ def create_student(request):
                 "manager_name": form.cleaned_data["manager_name"],
                 "observations": form.cleaned_data["observations"],
                 "year": form.cleaned_data["year"],
+                "period_id": request.POST.get("period_id"),
                 "status": "review"
             }
 
             try:
+
                 response = requests.post(
                     f"{ODOO_API}/api/tcu/student",
-                    json=json_data,
-                    headers={'Content-Type': 'application/json'}
+                    json=json_data
                 )
 
                 data = response.json()
 
-        
-                if data.get("success"):
+                
+
+                if data.get('success'):
                     return redirect('student_list')
 
-                message = data.get("message", "Error al crear estudiante")
-
+                message = data.get(
+                    'message',
+                    'Error creando estudiante'
+                )
+                print(data)
             except Exception as e:
-                message = f"Error conexión Odoo: {str(e)}"
+                message = str(e)
 
     else:
         form = StudentForm()
 
-    return render(request, 'students/create.html', {
-        'form': form,
-        'message': message
-    })
+    return render(
+        request,
+        'students/create.html',
+        {
+            'form': form,
+            'message': message,
+            'periods': periods
+        }
+    )
 
 
 # -------------------------

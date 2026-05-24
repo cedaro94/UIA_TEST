@@ -26,7 +26,7 @@ class API(http.Controller):
     # =========================
     @http.route(
         '/api/tcu/student',
-        type='json',
+        type='http',
         auth='public',
         methods=['POST'],
         csrf=False

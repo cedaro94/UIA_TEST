@@ -107,13 +107,36 @@ class API(http.Controller):
     # =========================
     # LISTAR ESTUDIANTES
     # =========================
-    @http.route('/api/tcu/students', type='http', auth='public', methods=['GET'], csrf=False)
-    def list_students(self):
+    @http.route(
+        '/api/tcu/students',
+        type='http',
+        auth='public',
+        methods=['GET'],
+        csrf=False
+    )
+    def list_students(self, **kwargs):
 
-        students = request.env['tcu.student'].sudo().search([])
+        identification = kwargs.get('identification')
+
+        domain = []
+
+        # =========================
+        # FILTRO IDENTIFICACION
+        # =========================
+        if identification:
+
+            domain.append(
+                ('identification', 'ilike', identification)
+            )
+
+        students = request.env[
+            'tcu.student'
+        ].sudo().search(domain)
 
         data = []
+
         for s in students:
+
             data.append({
                 'id': s.id,
                 'name': s.name,
@@ -129,9 +152,12 @@ class API(http.Controller):
         return request.make_response(
             json.dumps({
                 'success': True,
+                'total': len(data),
                 'data': data
             }),
-            headers=[('Content-Type', 'application/json')]
+            headers=[
+                ('Content-Type', 'application/json')
+            ]
         )
 
     # =========================

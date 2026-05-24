@@ -10,32 +10,28 @@ ODOO_API = "http://localhost:8069"
 # -------------------------
 def student_list(request):
 
-    identification = request.GET.get('identification', '')
+    identification = request.GET.get(
+        'identification',
+        ''
+    )
 
     students = []
 
     try:
 
         response = requests.get(
-            f"{ODOO_API}/api/tcu/students"
+            f"{ODOO_API}/api/tcu/students",
+            params={
+                'identification': identification
+            }
         )
 
         data = response.json()
 
         students = data.get('data', [])
 
-        # =========================
-        # FILTRO IDENTIFICACION
-        # =========================
-        if identification:
-
-            students = [
-                s for s in students
-                if identification.lower()
-                in (s.get('identification') or '').lower()
-            ]
-
     except Exception as e:
+
         print("Error Odoo:", e)
 
     return render(

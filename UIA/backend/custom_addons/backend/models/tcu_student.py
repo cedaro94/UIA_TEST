@@ -15,7 +15,21 @@ class TcuStudent(models.Model):
     _description = 'Estudiante TCU'
     _rec_name = 'name'
     _order = 'id desc'
+    _sql_constraints = [
 
+        (
+            'unique_identification',
+            'unique(identification)',
+            'La identificación ya existe'
+        ),
+
+        (
+            'unique_student_card',
+            'unique(student_card)',
+            'El carnet ya existe'
+        )
+
+    ]
     name = fields.Char(
         string='Nombre Completo',
         required=True

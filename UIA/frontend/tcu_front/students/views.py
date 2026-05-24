@@ -105,7 +105,6 @@ def create_student(request):
                     'message',
                     'Error creando estudiante'
                 )
-                print(data)
             except Exception as e:
                 message = str(e)
 

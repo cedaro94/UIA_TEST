@@ -1,3 +1,3 @@
-/UIA/backend/custom_addons/backend/controllers/__pycache__
-/UIA/backend/custom_addons/backend/models/__pycache__
-/UIA/frontend/tcu_front/students/__pycache__
+/UIA/backend/custom_addons/backend/controllers/__pycache__/*
+/UIA/backend/custom_addons/backend/models/__pycache__/*
+/UIA/frontend/tcu_front/students/__pycache__/*

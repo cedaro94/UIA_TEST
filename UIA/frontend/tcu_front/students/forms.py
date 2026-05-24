@@ -59,8 +59,9 @@ class StudentForm(forms.Form):
             required=False,
             widget=forms.Textarea(attrs={
             'class': 'form-control',
-            'rows': 4,
-            'placeholder': 'Observaciones'
+            'rows': 1,
+            'placeholder': 'Observaciones', 
+            'required': True,
         })
     )
     year = forms.ChoiceField(
@@ -73,8 +74,6 @@ class StudentForm(forms.Form):
             'class': 'form-select'
         })
     )
-    observations = forms.CharField(widget=forms.Textarea, required=False)
-
     status = forms.ChoiceField(choices=STATUS_CHOICES, required=False)
 
     def clean_identification(self):

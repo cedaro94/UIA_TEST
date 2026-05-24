@@ -10,16 +10,69 @@ STATUS_CHOICES = [
 
 
 class StudentForm(forms.Form):
-    name = forms.CharField()
-    identification = forms.CharField()
-    student_card = forms.CharField()
-    email = forms.EmailField(required=False)
-    phone = forms.CharField(required=False)
-
-    tcu_place = forms.CharField(required=False)
-    manager_name = forms.CharField(required=False)
-
-    year = forms.CharField(required=False)
+    name = forms.CharField(
+        widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Nombre completo'
+        })
+    )
+    identification = forms.CharField(
+        widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Identificación'
+        })
+    )
+    student_card = forms.CharField(
+            widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Carnet'
+        })
+    )
+    email = forms.EmailField(
+            widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Correo electrónico'
+        })
+    )
+    phone = forms.CharField(
+            widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Teléfono'
+        })
+    )
+    tcu_place = forms.CharField(
+            required=False,
+            widget=forms.TextInput(
+            attrs={
+            'class': 'form-control',
+            'placeholder': 'Lugar TCU'
+            })
+    )
+    manager_name = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Encargado'
+        })
+    )
+    observations = forms.CharField(
+            required=False,
+            widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 4,
+            'placeholder': 'Observaciones'
+        })
+    )
+    year = forms.ChoiceField(
+            choices=[
+            ('2026', '2026'),
+            ('2027', '2027'),
+            ('2028', '2028'),
+            ],
+            widget=forms.Select(attrs={
+            'class': 'form-select'
+        })
+    )
     observations = forms.CharField(widget=forms.Textarea, required=False)
 
     status = forms.ChoiceField(choices=STATUS_CHOICES, required=False)

@@ -13,6 +13,43 @@
 
 </div>
 <div class="table-responsive">
+<form method="GET" class="row mb-4">
+
+    <div class="col-md-4">
+
+        <input
+            type="text"
+            name="identification"
+            class="form-control"
+            placeholder="Buscar por identificación"
+            value="{{ identification }}"
+        >
+
+    </div>
+
+    <div class="col-md-2">
+
+        <button
+            type="submit"
+            class="btn btn-primary w-100"
+        >
+            Buscar
+        </button>
+
+    </div>
+
+    <div class="col-md-2">
+
+        <a
+            href="{% url 'student_list' %}"
+            class="btn btn-secondary w-100"
+        >
+            Limpiar
+        </a>
+
+    </div>
+
+</form>
 <table class="table table-hover align-middle">
 <thead>
 <tr>

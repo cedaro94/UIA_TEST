@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Cambiar estado</h3>
+    {% if message %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endif %}
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label>Estado</label>
+        <select name="status" class="form-select">
+            <option value="review">En revisión</option>
+            <option value="pending">Pendiente</option>
+            <option value="rejected">Rechazado</option>
+            <option value="approved">Aprobado</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Observaciones</label>
+        <textarea name="observations" class="form-control"></textarea>
+    </div>
+
+    <button class="btn btn-primary">
+        Actualizar
+    </button>
+</form>
+
+{% endblock %}
